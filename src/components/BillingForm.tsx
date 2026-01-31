@@ -101,7 +101,7 @@ const BillingForm = () => {
           <div className="flex items-center justify-center gap-3 mb-2">
             <Wrench className="w-10 h-10 text-primary" />
             <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-              Kandhan Autos
+              Sri Kandhan Autos
             </h1>
             <Wrench className="w-10 h-10 text-primary" />
           </div>
@@ -264,7 +264,7 @@ const BillingForm = () => {
 
         {/* Footer */}
         <div className="text-center mt-8 text-muted-foreground text-sm">
-          <p>© 2026 Kandhan Autos. All rights reserved.</p>
+          <p>© 2026 Sri Kandhan Autos. All rights reserved.</p>
         </div>
       </div>
     </div>
