@@ -18,7 +18,7 @@ const LoginPage = ({ onLogin }: LoginPageProps) => {
     e.preventDefault();
     
     // Simple authentication - username: suresh, password: suresh123
-    if (username === "suresh" && password === "suresh@erd") {
+    if (username === "suresh" && password === "suresh@123") {
       localStorage.setItem("isLoggedIn", "true");
       toast.success("Login successful!");
       onLogin();
