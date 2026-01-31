@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Wrench, Bike, Calendar, User, FileText, LogOut } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Wrench, Bike, Calendar, User, FileText, LogOut, ChevronDown, Check } from "lucide-react";
 import { toast } from "sonner";
 
 
@@ -55,6 +56,8 @@ const BillingForm = () => {
   const [bikeNumber, setBikeNumber] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [parts, setParts] = useState<PartItem[]>(initialParts);
+  const [isPartsOpen, setIsPartsOpen] = useState(false);
+  const [selectedPart, setSelectedPart] = useState<string | null>(null);
 
   const handlePriceChange = (id: string, value: string) => {
     const price = parseFloat(value) || 0;
@@ -211,41 +214,92 @@ const BillingForm = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {parts.map((part) => (
-                <div
-                  key={part.id}
-                  className="flex items-center gap-2 p-3 rounded-lg bg-part-item border border-part-border hover:border-primary/40 transition-colors"
-                >
-                  <div className="flex-1 min-w-0">
-                    <Label
-                      htmlFor={`price-${part.id}`}
-                      className="text-sm font-medium text-foreground block truncate"
-                    >
-                      {part.label}
-                    </Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      id={`price-${part.id}`}
-                      type="number"
-                      placeholder="₹"
-                      value={part.price || ""}
-                      onChange={(e) => handlePriceChange(part.id, e.target.value)}
-                      className="w-20 h-8 text-sm bg-input-bg border-input-border"
-                    />
-                    <span className="text-muted-foreground text-sm">×</span>
-                    <Input
-                      type="number"
-                      min="0"
-                      value={part.quantity || ""}
-                      onChange={(e) => handleQuantityChange(part.id, e.target.value)}
-                      className="w-14 h-8 text-sm bg-input-bg border-input-border"
-                    />
-                  </div>
+            <Collapsible open={isPartsOpen} onOpenChange={setIsPartsOpen}>
+              <CollapsibleTrigger className="w-full flex items-center justify-between p-4 rounded-lg bg-muted hover:bg-muted/80 transition-colors border border-border">
+                <div className="flex items-center gap-2">
+                  <Wrench className="w-5 h-5 text-primary" />
+                  <span className="font-medium text-foreground">
+                    Select Parts & Services
+                  </span>
+                  {parts.filter(p => p.price > 0).length > 0 && (
+                    <span className="bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded-full">
+                      {parts.filter(p => p.price > 0).length} selected
+                    </span>
+                  )}
                 </div>
-              ))}
-            </div>
+                <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-200 ${isPartsOpen ? 'rotate-180' : ''}`} />
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-2">
+                <div className="border border-border rounded-lg overflow-hidden max-h-80 overflow-y-auto">
+                  {parts.map((part) => (
+                    <div
+                      key={part.id}
+                      className="border-b border-border last:border-b-0"
+                    >
+                      <div
+                        onClick={() => setSelectedPart(selectedPart === part.id ? null : part.id)}
+                        className={`flex items-center justify-between p-3 cursor-pointer transition-colors ${
+                          part.price > 0 ? 'bg-primary/10' : 'hover:bg-muted/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          {part.price > 0 && (
+                            <Check className="w-4 h-4 text-primary" />
+                          )}
+                          <span className={`font-medium ${part.price > 0 ? 'text-primary' : 'text-foreground'}`}>
+                            {part.label}
+                          </span>
+                        </div>
+                        {part.price > 0 && (
+                          <span className="text-sm text-muted-foreground">
+                            ₹{part.price} × {part.quantity}
+                          </span>
+                        )}
+                      </div>
+                      {selectedPart === part.id && (
+                        <div className="p-3 bg-muted/30 border-t border-border flex items-center gap-3">
+                          <Label className="text-sm text-muted-foreground whitespace-nowrap">Price (₹)</Label>
+                          <Input
+                            type="number"
+                            placeholder="Enter price"
+                            value={part.price || ""}
+                            onChange={(e) => handlePriceChange(part.id, e.target.value)}
+                            className="w-24 h-8 text-sm"
+                            autoFocus
+                          />
+                          <Label className="text-sm text-muted-foreground whitespace-nowrap">Qty</Label>
+                          <Input
+                            type="number"
+                            min="0"
+                            placeholder="1"
+                            value={part.quantity || ""}
+                            onChange={(e) => handleQuantityChange(part.id, e.target.value)}
+                            className="w-16 h-8 text-sm"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+
+            {/* Selected Parts Summary */}
+            {parts.filter(p => p.price > 0).length > 0 && (
+              <div className="mt-4 p-3 bg-muted/50 rounded-lg">
+                <p className="text-sm font-medium text-muted-foreground mb-2">Selected Items:</p>
+                <div className="flex flex-wrap gap-2">
+                  {parts.filter(p => p.price > 0).map(part => (
+                    <span
+                      key={part.id}
+                      className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full flex items-center gap-1"
+                    >
+                      {part.label}: ₹{part.price} × {part.quantity}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 
