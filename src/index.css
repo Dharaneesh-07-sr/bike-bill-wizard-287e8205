@@ -188,4 +188,21 @@
   button {
     display: none !important;
   }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Stamp styling for print */
+  .print\:block .border-primary {
+    border-color: hsl(25 95% 53%) !important;
+  }
+
+  .print\:block .text-primary {
+    color: hsl(25 95% 53%) !important;
+  }
 }

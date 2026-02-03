@@ -352,10 +352,25 @@ const BillingForm = () => {
           </CardContent>
         </Card>
 
+
+        {/* Stamp - Only visible in print */}
+        <div className="hidden print:block mt-12">
+          <div className="flex justify-end">
+            <div className="border-2 border-primary rounded-lg p-4 text-center">
+              <p className="text-lg font-bold text-primary">For</p>
+              <p className="text-xl font-bold text-foreground">Sri Kandhan Autos</p>
+              <div className="mt-3 pt-3 border-t border-border">
+                <p className="text-sm text-muted-foreground">Authorized Signature</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Footer */}
-        <div className="text-center mt-8 text-muted-foreground text-sm">
+        <div className="text-center mt-8 text-muted-foreground text-sm print:hidden">
           <p>© 2026 Sri Kandhan Autos. All rights reserved.</p>
         </div>
+
       </div>
     </div>
   );
