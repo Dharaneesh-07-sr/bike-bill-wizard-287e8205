@@ -300,22 +300,6 @@ const BillingForm = () => {
               </CollapsibleContent>
             </Collapsible>
 
-            {/* Selected Parts Summary */}
-            {parts.filter(p => p.price > 0).length > 0 && (
-              <div className="mt-4 p-3 bg-muted/50 rounded-lg">
-                <p className="text-sm font-medium text-muted-foreground mb-2">Selected Items:</p>
-                <div className="flex flex-wrap gap-2">
-                  {parts.filter(p => p.price > 0).map(part => (
-                    <span
-                      key={part.id}
-                      className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full flex items-center gap-1"
-                    >
-                      {part.label}: ₹{part.price} × {part.quantity}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
           </CardContent>
         </Card>
 
