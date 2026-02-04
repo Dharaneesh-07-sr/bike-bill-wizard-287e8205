@@ -226,7 +226,7 @@ const BillingForm = () => {
           <CardHeader className="bg-card-header pb-4">
             <CardTitle className="flex items-center gap-2 text-xl">
               <Wrench className="w-5 h-5 text-primary" />
-              Parts & Services
+              Parts & Service Invoice
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
