@@ -353,6 +353,37 @@ const BillingForm = () => {
         </Card>
 
 
+        {/* Print-only Parts Table */}
+        <div className="hidden print:block mt-6">
+          <h3 className="text-lg font-bold text-foreground mb-3">Parts & Service Invoice</h3>
+          <table className="w-full border-collapse border border-foreground text-sm">
+            <thead>
+              <tr className="bg-muted">
+                <th className="border border-foreground px-3 py-2 text-left">S.No</th>
+                <th className="border border-foreground px-3 py-2 text-left">Parts Name</th>
+                <th className="border border-foreground px-3 py-2 text-right">Amount (₹)</th>
+                <th className="border border-foreground px-3 py-2 text-center">Quantity</th>
+                <th className="border border-foreground px-3 py-2 text-right">Total (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {parts.filter(p => p.price > 0).map((part, index) => (
+                <tr key={part.id}>
+                  <td className="border border-foreground px-3 py-2">{index + 1}</td>
+                  <td className="border border-foreground px-3 py-2">{part.label}</td>
+                  <td className="border border-foreground px-3 py-2 text-right">{part.price.toLocaleString("en-IN")}</td>
+                  <td className="border border-foreground px-3 py-2 text-center">{part.quantity}</td>
+                  <td className="border border-foreground px-3 py-2 text-right">{(part.price * part.quantity).toLocaleString("en-IN")}</td>
+                </tr>
+              ))}
+              <tr className="font-bold bg-muted">
+                <td colSpan={4} className="border border-foreground px-3 py-2 text-right">Grand Total:</td>
+                <td className="border border-foreground px-3 py-2 text-right">₹{calculateTotal().toLocaleString("en-IN")}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         {/* Stamp - Only visible in print */}
         <div className="hidden print:block mt-12">
           <div className="flex justify-end">
