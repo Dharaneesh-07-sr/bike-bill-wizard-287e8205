@@ -64,6 +64,15 @@ const initialParts: PartItem[] = [
   { id: "water_wash", label: "WATER WASH", price: 0, quantity: 0 },
   { id: "weilding", label: "WEILDING", price: 0, quantity: 0 },
   { id: "wiring_kit", label: "WIRING KIT", price: 0, quantity: 0 },
+  { id: "hl_assy", label: "HL ASSY", price: 0, quantity: 0 },
+  { id: "hl_housing", label: "HL HOUSING", price: 0, quantity: 0 },
+  { id: "ind_fr", label: "IND FR", price: 0, quantity: 0 },
+  { id: "hl_vicer", label: "HL VICER", price: 0, quantity: 0 },
+  { id: "hl_silver_vicer", label: "HL SILVER VICER", price: 0, quantity: 0 },
+  { id: "hl_rubber", label: "HL RUBBER", price: 0, quantity: 0 },
+  { id: "bumber", label: "BUMBER", price: 0, quantity: 0 },
+  { id: "footrest_assy", label: "FOOTREST ASSY", price: 0, quantity: 0 },
+  { id: "disk_air_clean", label: "DISK AIR CLEAN", price: 0, quantity: 0 },
 ];
 
 const BillingForm = () => {
