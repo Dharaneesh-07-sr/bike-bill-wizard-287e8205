@@ -73,6 +73,7 @@ const initialParts: PartItem[] = [
   { id: "bumber", label: "BUMBER", price: 0, quantity: 0 },
   { id: "footrest_assy", label: "FOOTREST ASSY", price: 0, quantity: 0 },
   { id: "disk_air_clean", label: "DISK AIR CLEAN", price: 0, quantity: 0 },
+  { id: "handle_bar", label: "HANDLE BAR", price: 0, quantity: 0 },
 ];
 
 const BillingForm = () => {
